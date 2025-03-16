@@ -1,68 +1,76 @@
 # To-Do List App with FastAPI
 
-A simple to-do list application built with FastAPI and JavaScript, showcasing API integration and basic frontend functionalities.
+This is a simple to-do list web app built with FastAPI and plain HTML/JavaScript. The app allows you to add tasks and mark them as complete, with completed tasks moving to the bottom of the list and appearing greyed out with a strikethrough.
 
 ## Features
 
-- Add new tasks to the list
-- View all tasks in real-time
-- Persistent server-side task management (in-memory for now)
+- Add new tasks to the list.
+- Mark tasks as completed — completed tasks are moved to the bottom of the list and displayed with a strikethrough.
+- FastAPI backend with in-memory storage (resets when the server restarts).
+- Vanilla JavaScript frontend with simple DOM manipulation.
 
 ## Tech Stack
 
-- Backend: FastAPI (Python)
-- Frontend: HTML, CSS, JavaScript (Vanilla)
-- Hosting: Uvicorn
+- FastAPI (Python)
+- HTML, CSS, and Vanilla JavaScript for the frontend
 
-## How to Run
+## Installation
 
 1. Clone the repository:
 
-    git clone https://github.com/yourusername/todo-list-app.git
-    cd todo-list-app
+```bash
+git clone https://github.com/yourusername/todo-app.git
+cd todo-app
+```
 
-2. Install dependencies:
+2. Create a virtual environment and install dependencies:
 
-    pip install fastapi uvicorn
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+pip install fastapi uvicorn
+```
 
-3. Run the FastAPI server:
+## Running the App
 
-    uvicorn main:app --reload
+Start the FastAPI server with Uvicorn:
 
-4. Access the app in your browser at:
+```bash
+uvicorn main:app --reload
+```
 
-    http://127.0.0.1:8000
+The app should now be accessible at [http://localhost:8000](http://localhost:8000).
 
-## API Endpoints
+## Project Structure
 
-- GET /tasks — Retrieve all tasks
-- POST /tasks — Add a new task (expects JSON payload)
+```
+├── main.py
+└── static
+    └── index.html
+```
 
-Example payload for adding a task:
+- `main.py`: FastAPI backend handling tasks.
+- `static/index.html`: Frontend interface.
 
-    {
-      "task": "Buy groceries"
-    }
+## Usage
 
-## Learnings
+1. Open [http://localhost:8000](http://localhost:8000) in your browser.
+2. Add tasks using the input field and "Add Task" button.
+3. Check off completed tasks to move them to the bottom.
 
-This project helped reinforce concepts related to:
+## Future Improvements
 
-- FastAPI for building RESTful APIs
-- Frontend-backend integration with fetch API
-- Real-time updates and UI interaction handling with JavaScript
+- Persistent storage using a database.
+- Docker containerization.
+- Enhanced UI/UX.
 
-## Next Steps
+## License
 
-- Add a database for persistent storage
-- Implement user authentication
-- Containerize the app with Docker
-
-## Acknowledgments
-
-- FastAPI documentation: https://fastapi.tiangolo.com/
-- Inspiration from various FastAPI tutorials online
+This project is licensed under the MIT License.
 
 ---
 
-Feel free to customize it further to reflect your experience and any additional features you’d like to highlight. Let me know if you’d like me to add anything or refine the structure. 🚀
+Enjoy building with FastAPI! 🚀
+
+
+
