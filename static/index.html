@@ -1,0 +1,44 @@
+<!DOCTYPE html>     <!-- the exclamation mark signals special content-->
+<html lang="en">    <!-- document type, language used are necessary for every html document-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <input type="text" id="task-input" placeholder="Add a new task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="task-list"></ul>
+
+    <script>
+        async function fetchTasks() {
+            const response = await fetch('/tasks');            
+            const data = await response.json();
+            const tasks = data.tasks;
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task;  // ✅ Correct, task is a string!
+                taskList.appendChild(li);
+            });
+        }
+
+        async function addTask() {
+            const taskInput = document.getElementById('task-input');
+            const title = taskInput.value;
+            if (!title) return;
+            await fetch('/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ task: title })
+            });
+            taskInput.value = '';
+            fetchTasks();
+        }
+
+        fetchTasks();
+    </script>
+</body>
+</html>

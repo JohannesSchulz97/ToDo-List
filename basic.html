@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <h1>Task List</h1>
+    
+    <!-- Input and Button -->
+    <input type="text" id="task-input" placeholder="Enter task">
+    <button onclick="addTask()">Add Task</button>
+    
+    <!-- Task List -->
+    <ul id="task-list"></ul>
+    
+    <script>
+        // Load tasks from Local Storage when the page loads
+        document.addEventListener('DOMContentLoaded', loadTasks);
+        
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';  // Clear existing tasks
+            
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task;
+                taskList.appendChild(li);
+            });
+        }
+
+        function addTask() {
+            const input = document.getElementById('task-input');
+            const task = input.value.trim();
+            
+            if (task === '') {
+                alert('Please enter a task');
+                return;
+            }
+            
+            // Get tasks from Local Storage or start a new list
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));  // Store back in Local Storage
+            
+            input.value = '';  // Clear input field
+            loadTasks();  // Refresh task list
+        }
+    </script>
+</body>
+</html>
