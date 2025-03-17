@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <style>
+        #task-list {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
     <h1>To-Do List</h1>
     <input type="text" id="task-input" placeholder="Add a new task">
     <button onclick="addTask()">Add Task</button>
     <ul id="task-list"></ul>
+
 
     <script>
         async function fetchTasks() {
@@ -20,7 +27,29 @@
             taskList.innerHTML = '';
             tasks.forEach(task => {
                 const li = document.createElement('li');
-                li.textContent = task;  // ✅ Correct, task is a string!
+                // Create the checkbox
+                const checkbox = document.createElement('input');
+                checkbox.setAttribute('type', 'checkbox');
+                checkbox.setAttribute('id', task);
+
+                // Create the label for the checkbox
+                const label = document.createElement('label');
+                label.setAttribute('for', task);
+                label.textContent = task;
+
+                // Append checkbox and label to the list item
+                li.appendChild(checkbox);
+                li.appendChild(label);
+
+                // Add event listener to remove the task when clicked
+                checkbox.addEventListener('click', async () => {
+                    await fetch('/tasks', {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ task: task })
+                    });
+                    fetchTasks();  // Refresh the list after removing the task
+                });
                 taskList.appendChild(li);
             });
         }
@@ -36,6 +65,13 @@
             });
             taskInput.value = '';
             fetchTasks();
+        }
+
+        async function completeTask(task) {
+            await fetch('/tasks', {
+                method: 'DELETE', 
+
+            })
         }
 
         fetchTasks();

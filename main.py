@@ -20,4 +20,10 @@ def add_task(task: Task):
     tasks.append(task.task)
     return {"message": "Task added!"}
 
+@app.delete("/tasks")
+def complete_task(task: Task): 
+    tasks.remove(task.task)
+    return {"message": "Task added!"}
+
+
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
