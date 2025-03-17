@@ -2,12 +2,12 @@
 
 ### Elements and Structure
 
-- HTML consists of a hierarchical forest structure of elements inside other elements. Elements that can hold content (**container elements**) can be created with the following syntax:
+- HTML consists of a hierarchical forest structure of elements inside other elements. Elements that can hold content (**container elements**) can be created with the following syntax, here tag is the keyword that specifies the type of element to be created:
 
     ```html
-    <elementkeyword> 
+    <tag> 
         content inside the element 
-    </elementkeyword>
+    </tag>
     ```
 
 - Elements can also be **self-closing**:
@@ -65,4 +65,20 @@ To create *hyperlinks*, the `<a>` element is used:
 ```html
   <a href="https://www.example.com">Click here</a>
 ```
+
+### Global vs Local Attributes
+
+As we said, attributes can be used to specify elements further and to provide additional information. 
+**Global attributes** are attributes that can be applied to any HTML element, making them quite important and essential: 
+- `id` is used to give an element a unique identifier within the current HTML file. It is a very useful attribute to have, especially, to access elements with JavaScript.
+- the `class` attribute can be used to access all elements that belong to a particular class. The class names are arbitrary and can be defined by the developer as per his needs. An element can belong to multiple classes: 
+```html
+<div class="container highlight"></div>
+```
+- `style` is used to add inline CSS directly to an element
+- `title` is used to give users extra information if hovering over an element
+- `lang` specifies the language of the element
+- `hidden` hides an element
+- `data_*` can be used to store information inside an element, i.e. `data_name`, `data_age`, ...
+- `onclick` and `onmouseover` can trigger JavaScript functions, to dynamically respond to user input.
 

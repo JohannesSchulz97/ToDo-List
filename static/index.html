@@ -66,14 +66,6 @@
             taskInput.value = '';
             fetchTasks();
         }
-
-        async function completeTask(task) {
-            await fetch('/tasks', {
-                method: 'DELETE', 
-
-            })
-        }
-
         fetchTasks();
     </script>
 </body>
