@@ -6,7 +6,7 @@ When loading a webpage, the browser creates a so called **Document Object Model 
 JavaScript is able to access this **DOM**, to change and modify its structure.
 
 ### Global Objects
-1. the `console` variable can be used to access the console, mostly to print information or organize output in general. The simplest use case is the standard `log()` function: `console.log("Hello, world!");`
+1. the `console` can be used to log information and organize output more generally. The simplest use case is the standard `log()` function: `console.log("Hello, world!");`
 
 ### Selecting Elements
 
