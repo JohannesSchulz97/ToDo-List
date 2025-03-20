@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.7/css/pico.min.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To-Do List</title>
     <style>
         #task-list {
@@ -12,61 +14,66 @@
     </style>
 </head>
 <body>
-    <h1>To-Do List</h1>
-    <input type="text" id="task-input" placeholder="Add a new task">
-    <button onclick="addTask()">Add Task</button>
-    <ul id="task-list"></ul>
-
-
-    <script>
-        async function fetchTasks() {
-            const response = await fetch('/tasks');            
-            const data = await response.json();
-            const tasks = data.tasks;
-            const taskList = document.getElementById('task-list');
-            taskList.innerHTML = '';
-            tasks.forEach(task => {
-                const li = document.createElement('li');
-                // Create the checkbox
-                const checkbox = document.createElement('input');
-                checkbox.setAttribute('type', 'checkbox');
-                checkbox.setAttribute('id', task);
-
-                // Create the label for the checkbox
-                const label = document.createElement('label');
-                label.setAttribute('for', task);
-                label.textContent = task;
-
-                // Append checkbox and label to the list item
-                li.appendChild(checkbox);
-                li.appendChild(label);
-
-                // Add event listener to remove the task when clicked
-                checkbox.addEventListener('click', async () => {
-                    await fetch('/tasks', {
-                        method: 'DELETE',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ task: task })
+    <main class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="task-input" placeholder="Add a new task">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="task-list"></ul>
+    
+    
+        <script>
+            async function fetchTasks() {
+                const response = await fetch('/tasks');            
+                const data = await response.json();
+                const tasks = data.tasks;
+                const taskList = document.getElementById('task-list');
+                taskList.innerHTML = '';
+                tasks.forEach(task => {
+                    const li = document.createElement('li');
+                    // Create the checkbox
+                    const checkbox = document.createElement('input');
+                    checkbox.setAttribute('type', 'checkbox');
+                    checkbox.setAttribute('id', task);
+    
+                    // Create the label for the checkbox
+                    const label = document.createElement('label');
+                    label.setAttribute('for', task);
+                    label.textContent = task;
+    
+                    // Append checkbox and label to the list item
+                    li.appendChild(checkbox);
+                    li.appendChild(label);
+    
+                    // Add event listener to remove the task when clicked
+                    checkbox.addEventListener('click', async () => {
+                        await fetch('/tasks', {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ task: task })
+                        });
+                        fetchTasks();  // Refresh the list after removing the task
                     });
-                    fetchTasks();  // Refresh the list after removing the task
+                    taskList.appendChild(li);
                 });
-                taskList.appendChild(li);
-            });
-        }
-
-        async function addTask() {
-            const taskInput = document.getElementById('task-input');
-            const title = taskInput.value;
-            if (!title) return;
-            await fetch('/tasks', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ task: title })
-            });
-            taskInput.value = '';
+            }
+    
+            async function addTask() {
+                const taskInput = document.getElementById('task-input');
+                const title = taskInput.value;
+                if (!title) return;
+                await fetch('/tasks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task: title })
+                });
+                taskInput.value = '';
+                fetchTasks();
+            }
             fetchTasks();
-        }
-        fetchTasks();
-    </script>
+        </script>
+
+
+    </main>
+
 </body>
 </html>
